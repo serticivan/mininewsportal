@@ -9,7 +9,7 @@ public interface UserService {
 
     void addUser(User user);
 
-    void updateUser(Long id, User user);
+    User updateUser(Long id);
 
     Set<User> findAllUsers();
 

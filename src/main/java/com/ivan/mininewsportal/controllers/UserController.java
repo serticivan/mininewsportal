@@ -40,8 +40,8 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     private String showUpdateForm(@PathVariable("id") Long id, Model model) {
-        User user = userService.findUserById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
+
+        User user = userService.updateUser(id);
 
         model.addAttribute("user", user);
         return "user_form";

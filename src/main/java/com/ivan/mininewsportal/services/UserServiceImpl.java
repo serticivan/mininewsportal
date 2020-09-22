@@ -39,7 +39,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(Long id, User user) {
-        userRepository.save(user);
+    public User updateUser(Long id) {
+        return findUserById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
+
     }
 }
