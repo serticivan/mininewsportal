@@ -1,7 +1,7 @@
 package com.ivan.mininewsportal.controllers;
 
 import com.ivan.mininewsportal.models.User;
-import com.ivan.mininewsportal.services.UserService;
+import com.ivan.mininewsportal.services.userservice.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +18,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/showUserForm")
+    @GetMapping({"/showUserForm", "/showuserform"})
     private String showUserForm(Model model) {
         model.addAttribute(new User());
         return "user_form";
     }
 
     @PostMapping("/save")
-    private String addNewUser(@ModelAttribute User user) {
-        userService.addUser(user);
+    private String addNewOrUpdateUser(@ModelAttribute User user) {
+        userService.saveUser(user);
         return "user_info";
     }
 
@@ -41,10 +41,16 @@ public class UserController {
     @GetMapping("/edit/{id}")
     private String showUpdateForm(@PathVariable("id") Long id, Model model) {
 
-        User user = userService.updateUser(id);
+        Optional<User> user = userService.findUserById(id);
 
-        model.addAttribute("user", user);
-        return "user_form";
+        if (user.isPresent()) {
+
+            model.addAttribute("user", user.get());
+            return "user_form";
+        } else {
+            return "error_page";
+        }
+
     }
 
 

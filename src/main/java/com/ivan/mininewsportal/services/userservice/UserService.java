@@ -1,4 +1,4 @@
-package com.ivan.mininewsportal.services;
+package com.ivan.mininewsportal.services.userservice;
 
 import com.ivan.mininewsportal.models.User;
 
@@ -7,9 +7,7 @@ import java.util.Set;
 
 public interface UserService {
 
-    void addUser(User user);
-
-    User updateUser(Long id);
+    void saveUser(User user); //this method add new or edit User
 
     Set<User> findAllUsers();
 

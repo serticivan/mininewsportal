@@ -1,4 +1,4 @@
-package com.ivan.mininewsportal.services;
+package com.ivan.mininewsportal.services.userservice;
 
 import com.ivan.mininewsportal.models.User;
 import com.ivan.mininewsportal.repositories.UserRepository;
@@ -18,30 +18,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
+    public void saveUser(User user) {
         userRepository.save(user);
         System.out.println("User with id: " + user.getUserId() + " added");
     }
 
     @Override
     public Set<User> findAllUsers() {
-        Set<User> users = new HashSet<>();
-        userRepository.findAll().iterator().forEachRemaining(users::add);
-        return users;
+
+        return new HashSet<>(userRepository.findAll());
+
     }
 
     @Override
     public Optional<User> findUserById(Long id) {
-        return userRepository.findAll()
-                .stream()
-                .filter(user -> user.getUserId().equals(id))
-                .findFirst();
+        return userRepository.findById(id);
     }
 
-    @Override
-    public User updateUser(Long id) {
-        return findUserById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
 
-    }
 }
