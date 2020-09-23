@@ -1,6 +1,7 @@
 package com.ivan.mininewsportal.services.articleservice;
 
 import com.ivan.mininewsportal.models.Article;
+import org.springframework.data.domain.Page;
 
 import java.util.Optional;
 import java.util.Set;
@@ -12,5 +13,7 @@ public interface ArticleService {
     Set<Article> findAllArticle();
 
     Optional<Article> findArticleById(Long id);
+
+    Page<Article> findAllArticlePageable();
 
 }
