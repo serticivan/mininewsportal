@@ -33,4 +33,8 @@ public class Article {
     @NotEmpty(message = "keyword required")
     private String keywords;
 
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
 }

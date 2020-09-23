@@ -12,6 +12,10 @@
     <h1>Article info</h1>
     <table>
         <tr>
+            <td class="mr-2 bigblock">Author: </td>
+            <td th:text="${article.user.firstName + ' ' + article.user.lastName}"/>
+        </tr>
+        <tr>
             <td class="mr-2 bigblock">Title: </td>
             <td th:text="${article.title}"/>
         </tr>
