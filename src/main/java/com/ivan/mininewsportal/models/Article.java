@@ -34,4 +34,7 @@ public class Article {
     @JoinColumn(name = "userId")
     private User user;
 
+//    @OneToMany(mappedBy = "article",fetch = FetchType.EAGER)
+//    private Set<Keyword> keywords = new HashSet<>();
+
 }
