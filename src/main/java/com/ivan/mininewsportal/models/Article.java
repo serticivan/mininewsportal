@@ -30,9 +30,6 @@ public class Article {
 
     private LocalDateTime localDateTime = LocalDateTime.now();
 
-    @NotEmpty(message = "keyword required")
-    private String keywords;
-
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
