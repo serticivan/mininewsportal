@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,7 +36,7 @@ public class Article {
     @JoinColumn(name = "userId")
     private User user;
 
-//    @OneToMany(mappedBy = "article",fetch = FetchType.EAGER)
-//    private Set<Keyword> keywords = new HashSet<>();
+    @OneToMany(mappedBy = "article",fetch = FetchType.EAGER)
+    private Set<Keyword> keywords = new HashSet<>();
 
 }

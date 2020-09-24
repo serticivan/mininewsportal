@@ -24,8 +24,8 @@ public class Keyword {
     @NotEmpty(message = "Keyword name required!")
     private String name;
 
-//    @ManyToOne
-//    @JoinColumn(name = "articleId")
-//    private Article article;
+    @ManyToOne
+    @JoinColumn(name = "articleId")
+    private Article article;
 
 }

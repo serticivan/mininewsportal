@@ -18,7 +18,7 @@
             <small th:text="${article.localDateTime}">3 days ago</small>
         </div>
         <p class="mb-1" th:text="${article.text}">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-        <small>Donec id elit non mi porta.</small>
+        <small th:each="keyword : ${article.keywords}" th:text="${keyword.name}  + ' '">Donec id elit non mi porta.</small>
     </a>
 </div>
 

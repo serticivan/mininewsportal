@@ -23,7 +23,7 @@ public class KeywordServiceImpl implements KeywordService {
     }
 
     @Override
-    public Set<Keyword> findAllUsers() {
+    public Set<Keyword> findAllKeywords() {
         return new HashSet<>(keywordRepository.findAll());
     }
 
