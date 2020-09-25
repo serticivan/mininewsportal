@@ -8,8 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,11 +32,11 @@ public class Article {
 
     private LocalDateTime localDateTime = LocalDateTime.now();
 
+    @ElementCollection
+    private List<String> keywords = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
-
-    @OneToMany(mappedBy = "article",fetch = FetchType.EAGER)
-    private Set<Keyword> keywords = new HashSet<>();
 
 }

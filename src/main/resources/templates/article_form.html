@@ -15,9 +15,36 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+<!--    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+<!--    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
+<!--    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+
     <meta charset="UTF-8">
 
     <title>Article</title>
+
+<!--    <script>-->
+<!--        var room = 1;-->
+
+<!--        function keyword_fields() {-->
+
+<!--            room++;-->
+<!--            var objTo = document.getElementById('keyword_fields')-->
+<!--            var divtest = document.createElement("div");-->
+<!--            divtest.setAttribute("class", "form-group removeclass" + room);-->
+<!--            divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> ' +-->
+<!--                '<input type="text" class="form-control" th:field="*{keywords}" id="KeywordName" name="KeywordName[]" value="" placeholder="keyword"/></div>' +-->
+<!--                '<div class="form-group"></select>' +-->
+<!--                '<div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_keyword_fields(' + room + ');"> ' +-->
+<!--                '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';-->
+
+<!--            objTo.appendChild(divtest)-->
+<!--        }-->
+
+<!--        function remove_keyword_fields(rid) {-->
+<!--            $('.removeclass' + rid).remove();-->
+<!--        }-->
+<!--    </script>-->
 
 </head>
 <body>
@@ -41,14 +68,8 @@
             <br/><br/>
         </div>
 
-<!--        <div class="form-group">-->
-<!--            <label>Keywords</label>-->
-<!--            <input class="form-control" type="text" th:field="*{keywords}"/>-->
-<!--            <br/><br/>-->
-<!--        </div>-->
-
         <div class="row mt-3">
-            <label class="mr-2 block" for="assign" >Assign article to: </label>
+            <label class="mr-2 block" for="assign">Assign article to: </label>
             <select id="assign" th:field="*{user}">
                 <option th:each="user : ${users}"
                         th:value="${user.userId}"
@@ -56,9 +77,48 @@
                 </option>
             </select>
         </div>
+        <br/><br/>
+
+        <div class="form-group">
+            <label>Keywords</label>
+            <input class="form-control" type="text" th:field="*{keywords}"/>
+            <br/><br/>
+        </div>
+
+        <div class="form-group">
+            <label>Keywords</label>
+            <input class="form-control" type="text" th:field="*{keywords}"/>
+            <br/><br/>
+        </div>
+
+        <!--        <div class="panel panel-default">-->
+        <!--            <div class="panel-body">-->
+
+        <!--                <div id="keyword_fields">-->
+
+        <!--                </div>-->
+        <!--                <div class="col-sm-3 nopadding">-->
+        <!--                    <div class="form-group">-->
+        <!--                        <input type="text" class="form-control" th:field="*{keywords}" id="KeywordName" name="KeywordName[]" value="" placeholder="keyword"/>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+
+        <!--                <div class="col-sm-3 nopadding">-->
+        <!--                    <div class="form-group">-->
+        <!--                        <div class="input-group">-->
+        <!--                            <div class="input-group-btn">-->
+        <!--                                <button class="btn btn-success" type="button"  onclick="keyword_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="clear"></div>-->
+        <!--            </div>-->
+        <!--        </div>-->
 
         <hr/>
         <br/><br/>
+
 
         <button type="submit" class="btn btn-info"> Submit</button>
         <a>
@@ -66,6 +126,8 @@
         </a>
 
     </form>
+
+
 </div>
 </body>
 </html>

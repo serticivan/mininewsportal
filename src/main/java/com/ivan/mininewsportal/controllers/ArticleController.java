@@ -72,5 +72,11 @@ public class ArticleController {
 
     }
 
+    @GetMapping("/search")
+    private String showArticleByKeyword(@RequestParam (value = "search", required = false) String keyword, Model model) {
+        model.addAttribute("search", articleService.findArticleByKeyword(keyword));
+        return "article_search_by_keyword_list";
+    }
+
 
 }
