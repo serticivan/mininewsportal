@@ -80,8 +80,9 @@ public class ArticleController {
 
     @GetMapping("/search")
     private String showArticleByKeyword(@RequestParam (value = "search") String keyword, Model model) {
-        if (!keyword.isEmpty()) {
-            model.addAttribute("search", articleService.findArticleByKeyword(keyword));
+        Set<Article> findArticleByKeyword = articleService.findArticleByKeyword(keyword);
+        if (!keyword.isEmpty() && !findArticleByKeyword.isEmpty()) {
+            model.addAttribute("search", findArticleByKeyword);
             return "article_search_by_keyword_list";
 
         } else{
