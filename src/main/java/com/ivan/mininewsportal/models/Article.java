@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,8 +32,8 @@ public class Article {
 
     private LocalDateTime localDateTime = LocalDateTime.now();
 
-    @NotEmpty(message = "keyword required")
-    private String keywords;
+    @ElementCollection
+    private List<String> keywords = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "userId")

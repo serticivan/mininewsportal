@@ -14,6 +14,8 @@ public interface ArticleService {
 
     Optional<Article> findArticleById(Long id);
 
+    Set<Article> findArticleByKeyword(String keyword);
+
     Page<Article> findAllArticlePageable();
 
 }
