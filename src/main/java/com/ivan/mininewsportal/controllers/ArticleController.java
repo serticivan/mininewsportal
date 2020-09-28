@@ -42,9 +42,15 @@ public class ArticleController {
     @GetMapping("/info/{id}")
     private String articleInfo(@PathVariable("id") Long id, Model model) {
         Optional<Article> findArticle = articleService.findArticleById(id);
-        findArticle.ifPresent(article -> model.addAttribute("article", article));
 
-        return "article_info";
+        if (findArticle.isPresent()) {
+            findArticle.ifPresent(article -> model.addAttribute("article", article));
+            return "article_info";
+        } else {
+            return "error_page";
+        }
+
+
     }
 
     @GetMapping("/edit/{id}")
@@ -73,9 +79,14 @@ public class ArticleController {
     }
 
     @GetMapping("/search")
-    private String showArticleByKeyword(@RequestParam (value = "search", required = false) String keyword, Model model) {
-        model.addAttribute("search", articleService.findArticleByKeyword(keyword));
-        return "article_search_by_keyword_list";
+    private String showArticleByKeyword(@RequestParam (value = "search") String keyword, Model model) {
+        if (!keyword.isEmpty()) {
+            model.addAttribute("search", articleService.findArticleByKeyword(keyword));
+            return "article_search_by_keyword_list";
+
+        } else{
+            return "error_page";
+        }
     }
 
 

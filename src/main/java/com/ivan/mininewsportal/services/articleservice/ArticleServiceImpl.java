@@ -45,6 +45,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Set<Article> findArticleByKeyword(String keyword) {
 
-        return articleRepository.findByKeywords(keyword);
+
+        return articleRepository.findAllByKeywords(keyword);
     }
 }

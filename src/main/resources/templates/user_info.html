@@ -8,6 +8,9 @@
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../css/mystyle.css">
 <body>
+
+<div th:insert="nav_bar :: navBarHeader"></div>
+
 <div class="container mt-5">
     <h1>User info</h1>
     <table>
@@ -25,7 +28,7 @@
         </tr>
 
     </table>
-    <a >
+    <a th:href="@{'/homepage'}">
         <button class="btn btn-info" type="button">Back</button>
     </a>
     <a th:href="@{'/user/edit/' + ${user.userId}}">

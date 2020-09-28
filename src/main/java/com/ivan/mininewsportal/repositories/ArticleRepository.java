@@ -7,6 +7,6 @@ import java.util.Set;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    Set<Article> findByKeywords(String keyword);
+    Set<Article> findAllByKeywords(String keyword);
 
 }

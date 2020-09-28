@@ -8,32 +8,38 @@
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../css/mystyle.css">
 <body>
+
+<div th:insert="nav_bar :: navBarHeader"></div>
+
 <div class="container mt-5">
     <h1>Article info</h1>
     <table>
         <tr>
-            <td class="mr-2 bigblock">Author: </td>
-            <td th:text="${article.user.firstName + ' ' + article.user.lastName}"/>
+            <td class="mr-2 bigblock">Author:</td>
+            <td><a th:href="@{'/user/info/' + ${article.user.userId}}"
+                   th:text="${article.user.firstName + ' ' + article.user.lastName}">
+            </a>
+            </td>
         </tr>
         <tr>
-            <td class="mr-2 bigblock">Title: </td>
+            <td class="mr-2 bigblock">Title:</td>
             <td th:text="${article.title}"/>
         </tr>
         <tr>
-            <td class="mr-2 bigblock">Text: </td>
+            <td class="mr-2 bigblock">Text:</td>
             <td th:text="${article.text}"/>
         </tr>
         <tr>
-            <td class="mr-2 bigblock">Published </td>
+            <td class="mr-2 bigblock">Published</td>
             <td th:text="${article.localDateTime}"/>
         </tr>
-<!--        <tr>-->
-<!--            <td class="mr-2 bigblock">Tags: </td>-->
-<!--            <td th:text="${article.keywords}"/>-->
-<!--        </tr>-->
+        <tr>
+            <td class="mr-2 bigblock">Tags:</td>
+            <td th:text="${article.keywords}"/>
+        </tr>
 
     </table>
-    <a >
+    <a th:href="@{'/homepage'}">
         <button class="btn btn-info" type="button">Back</button>
     </a>
     <a th:href="@{'/article/edit/' + ${article.articleId}}">
