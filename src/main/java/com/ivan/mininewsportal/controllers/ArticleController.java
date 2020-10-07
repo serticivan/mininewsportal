@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -72,7 +73,7 @@ public class ArticleController {
     @GetMapping("/articlelist")
     private String listOfArticles(Model model) {
 
-        Set<Article> articleList = articleService.findAllArticle();
+        List<Article> articleList = articleService.findAllArticle();
         model.addAttribute("articles", articleList);
         return "article_list";
 
@@ -80,7 +81,7 @@ public class ArticleController {
 
     @GetMapping("/search")
     private String showArticleByKeyword(@RequestParam (value = "search") String keyword, Model model) {
-        Set<Article> findArticleByKeyword = articleService.findArticleByKeyword(keyword);
+        List<Article> findArticleByKeyword = articleService.findArticleByKeyword(keyword);
         if (!keyword.isEmpty() && !findArticleByKeyword.isEmpty()) {
             model.addAttribute("search", findArticleByKeyword);
             return "article_search_by_keyword_list";

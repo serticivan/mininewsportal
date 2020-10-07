@@ -3,10 +3,10 @@ package com.ivan.mininewsportal.repositories;
 import com.ivan.mininewsportal.models.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Set;
+import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    Set<Article> findAllByKeywords(String keyword);
+    List<Article> findAllByKeywords(String keyword);
 
 }
