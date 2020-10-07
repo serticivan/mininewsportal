@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/article")
@@ -24,11 +23,11 @@ public class ArticleController {
         this.userService = userService;
     }
 
-    @GetMapping({"/showArticleForm", "/showarticleform"})
+    @GetMapping("/showarticleform")
     private String showArticleForm(Model model) {
         model.addAttribute(new Article());
 
-        Set<User> users = userService.findAllUsers();
+        List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
 
         return "article_form";
@@ -58,7 +57,7 @@ public class ArticleController {
     private String editArticle(@PathVariable("id") Long id, Model model) {
 
         Optional<Article> getArticleById = articleService.findArticleById(id);
-        Set<User> users = userService.findAllUsers();
+        List<User> users = userService.findAllUsers();
 
         if (getArticleById.isPresent()) {
             model.addAttribute("article", getArticleById);

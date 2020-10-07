@@ -18,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping({"/showUserForm", "/showuserform"})
+    @GetMapping("/showuserform")
     private String showUserForm(Model model) {
         model.addAttribute(new User());
         return "user_form";
