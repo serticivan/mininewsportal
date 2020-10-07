@@ -23,16 +23,6 @@ public class ArticleController {
         this.userService = userService;
     }
 
-    @GetMapping("/showarticleform")
-    private String showArticleForm(Model model) {
-        model.addAttribute(new Article());
-
-        List<User> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-
-        return "article_form";
-    }
-
     @PostMapping("/savearticle")
     private String saveUser(@ModelAttribute Article article) {
         articleService.saveArticle(article);
@@ -56,16 +46,27 @@ public class ArticleController {
     @GetMapping("/edit/{id}")
     private String editArticle(@PathVariable("id") Long id, Model model) {
 
-        Optional<Article> getArticleById = articleService.findArticleById(id);
-        List<User> users = userService.findAllUsers();
+        if (id <= 0) {
+            model.addAttribute(new Article());
 
-        if (getArticleById.isPresent()) {
-            model.addAttribute("article", getArticleById);
+            List<User> users = userService.findAllUsers();
             model.addAttribute("users", users);
+
             return "article_form";
         } else {
-            return "error_page";
+            Optional<Article> getArticleById = articleService.findArticleById(id);
+            List<User> users = userService.findAllUsers();
+
+            if (getArticleById.isPresent()) {
+                model.addAttribute("article", getArticleById);
+                model.addAttribute("users", users);
+                return "article_form";
+            } else {
+                return "error_page";
+            }
+
         }
+
 
     }
 
@@ -79,13 +80,13 @@ public class ArticleController {
     }
 
     @GetMapping("/search")
-    private String showArticleByKeyword(@RequestParam (value = "search") String keyword, Model model) {
+    private String showArticleByKeyword(@RequestParam(value = "search") String keyword, Model model) {
         List<Article> findArticleByKeyword = articleService.findArticleByKeyword(keyword);
         if (!keyword.isEmpty() && !findArticleByKeyword.isEmpty()) {
             model.addAttribute("search", findArticleByKeyword);
             return "article_search_by_keyword_list";
 
-        } else{
+        } else {
             return "error_page";
         }
     }
