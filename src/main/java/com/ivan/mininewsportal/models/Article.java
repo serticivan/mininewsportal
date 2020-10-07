@@ -20,17 +20,18 @@ import java.util.List;
 public class Article {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "article_generator")
-    @SequenceGenerator(name = "article_generator", allocationSize = 5)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "article_sequence")
+    @SequenceGenerator(name = "article_sequence", allocationSize = 5)
     private Long articleId;
 
     @NotEmpty(message = "Title required")
     private String title;
 
+    @Lob
     @NotEmpty(message = "Text required")
     private String text;
 
-    private LocalDateTime localDateTime = LocalDateTime.now();
+    private LocalDateTime showAddOrUpdatedArticleDate = LocalDateTime.now();
 
     @ElementCollection
     private List<String> keywords = new ArrayList<>();
