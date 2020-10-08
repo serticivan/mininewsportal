@@ -6,8 +6,10 @@ import com.ivan.mininewsportal.services.articleservice.ArticleService;
 import com.ivan.mininewsportal.services.userservice.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +26,17 @@ public class ArticleController {
     }
 
     @PostMapping("/savearticle")
-    private String saveUser(@ModelAttribute Article article) {
-        articleService.saveArticle(article);
-        return "article_info";
+    private String saveArticle(@ModelAttribute @Valid Article article, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()){
+            List<User> users = userService.findAllUsers();
+            model.addAttribute("users", users);
+            return "article_form";
+        }else {
+            articleService.saveArticle(article);
+            return "article_info";
+        }
+
     }
 
     @GetMapping("/info/{id}")

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class Article {
 
     @ManyToOne
     @JoinColumn(name = "userId")
+    @NotNull(message = "User required. Please make new User first!")
     private User user;
 
 }

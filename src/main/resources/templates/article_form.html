@@ -33,23 +33,34 @@
         <div class="form-group">
             <label>Title</label>
             <input class="form-control" type="text" th:field="*{title}"/>
+            <label th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></label>
             <br/><br/>
         </div>
 
         <div class="form-group">
             <label>Text</label>
             <textarea class="form-control" rows="3" th:field="*{text}"></textarea>
+            <label th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></label>
             <br/><br/>
         </div>
 
         <div class="row mt-3">
-            <label class="mr-2 block" for="assign">Assign article to: </label>
-            <select id="assign" th:field="*{user}">
-                <option th:each="user : ${users}"
-                        th:value="${user.userId}"
-                        th:text="${user.firstName + ' ' + user.lastName}">Users
-                </option>
-            </select>
+
+<!--            <div th:if="${users != null and !users.isEmpty()}">-->
+
+
+                <label class="mr-2 block" for="assign" th:if="${#fields.hasErrors('user')}" th:errors="*{user}">Assign article to: </label>
+                <select id="assign" th:field="*{user}">
+                    <option th:each="user : ${users}"
+                            th:value="${user.userId}"
+                            th:text="${user.firstName + ' ' + user.lastName}">Users
+                    </option>
+                </select>
+<!--            </div>-->
+
+<!--            <div th:unless="${users == null and users.isEmpty()}">-->
+<!--                <label th:errors="*{user}">User cannot be null</label>-->
+<!--            </div>-->
         </div>
         <br/><br/>
 
