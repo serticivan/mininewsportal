@@ -31,9 +31,9 @@
                 <a class="nav-link" th:href="@{'/user/edit/0'}">Add new User</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" action="/article/search" method="get">
+        <form class="form-inline my-2 my-lg-0" action="/article/search" th:object="${article}" method="get">
             <input class="form-control mr-sm-2" type="text" placeholder="Search"
-                   aria-label="Search" name="searchKeyword">
+                   aria-label="Search" name="search" th:value="${search}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
