@@ -25,16 +25,23 @@ public class ArticleController {
         this.userService = userService;
     }
 
-    @PostMapping("/savearticle")
-    private String saveArticle(@ModelAttribute @Valid Article article, BindingResult bindingResult, Model model) {
+    @PostMapping("/edit/{id}")
+    private String saveArticle(@ModelAttribute @Valid Article article,
+                               BindingResult bindingResult,
+                               @PathVariable("id") Long id,
+                               Model model) {
 
-        if (bindingResult.hasErrors()){
-            List<User> users = userService.findAllUsers();
-            model.addAttribute("users", users);
-            return "article_form";
-        }else {
-            articleService.saveArticle(article);
-            return "article_info";
+        if (id <= 0) {
+            if (bindingResult.hasErrors()) {
+                List<User> users = userService.findAllUsers();
+                model.addAttribute("users", users);
+                return "article_form";
+            } else {
+                articleService.saveArticle(article);
+                return "article_info";
+            }
+        } else {
+            return "error_page";
         }
 
     }
