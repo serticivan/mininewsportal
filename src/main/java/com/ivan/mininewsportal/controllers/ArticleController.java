@@ -6,10 +6,12 @@ import com.ivan.mininewsportal.services.articleservice.ArticleService;
 import com.ivan.mininewsportal.services.userservice.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/article")
@@ -23,20 +25,25 @@ public class ArticleController {
         this.userService = userService;
     }
 
-    @GetMapping({"/showArticleForm", "/showarticleform"})
-    private String showArticleForm(Model model) {
-        model.addAttribute(new Article());
+    @PostMapping("/edit/{id}")
+    private String saveArticle(@ModelAttribute @Valid Article article,
+                               BindingResult bindingResult,
+                               @PathVariable("id") Long id,
+                               Model model) {
 
-        Set<User> users = userService.findAllUsers();
-        model.addAttribute("users", users);
+        if (id <= 0) {
+            if (bindingResult.hasErrors()) {
+                List<User> users = userService.findAllUsers();
+                model.addAttribute("users", users);
+                return "article_form";
+            } else {
+                articleService.saveArticle(article);
+                return "article_info";
+            }
+        } else {
+            return "error_page";
+        }
 
-        return "article_form";
-    }
-
-    @PostMapping("/savearticle")
-    private String saveUser(@ModelAttribute Article article) {
-        articleService.saveArticle(article);
-        return "article_info";
     }
 
     @GetMapping("/info/{id}")
@@ -56,33 +63,49 @@ public class ArticleController {
     @GetMapping("/edit/{id}")
     private String editArticle(@PathVariable("id") Long id, Model model) {
 
-        Optional<Article> getArticleById = articleService.findArticleById(id);
-        Set<User> users = userService.findAllUsers();
+        if (id <= 0) {
+            model.addAttribute(new Article());
 
-        if (getArticleById.isPresent()) {
-            model.addAttribute("article", getArticleById);
+            List<User> users = userService.findAllUsers();
             model.addAttribute("users", users);
+
             return "article_form";
         } else {
-            return "error_page";
+            Optional<Article> getArticleById = articleService.findArticleById(id);
+            List<User> users = userService.findAllUsers();
+
+            if (getArticleById.isPresent()) {
+                model.addAttribute("article", getArticleById);
+                model.addAttribute("users", users);
+                return "article_form";
+            } else {
+                return "error_page";
+            }
+
         }
+
 
     }
 
     @GetMapping("/articlelist")
     private String listOfArticles(Model model) {
 
-        Set<Article> articleList = articleService.findAllArticle();
+        List<Article> articleList = articleService.findAllArticle();
         model.addAttribute("articles", articleList);
         return "article_list";
 
     }
 
     @GetMapping("/search")
-    private String showArticleByKeyword(@RequestParam (value = "searchKeyword") String keyword, Model model) {
-        Set<Article> findArticleByKeyword = articleService.findArticleByKeyword(keyword);
+    private String showArticleByKeyword(@RequestParam(value = "search") String keyword, Model model) {
+        List<Article> findArticleByKeyword = articleService.findArticleByKeyword(keyword);
+        if (!keyword.isEmpty() && !findArticleByKeyword.isEmpty()) {
             model.addAttribute("search", findArticleByKeyword);
             return "article_search_by_keyword_list";
+
+        } else {
+            return "error_page";
+        }
     }
 
 

@@ -6,10 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -26,15 +26,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Set<Article> findAllArticle() {
-        return new HashSet<>(articleRepository.findAll());
+    public List<Article> findAllArticle() {
+        return articleRepository.findAll();
 
     }
 
     @Override
     public Page<Article> findAllArticlePageable() {
         return articleRepository
-                .findAll(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("localDateTime"))));
+                .findAll(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("showAddOrUpdatedArticleDate"))));
     }
 
     @Override
@@ -42,10 +42,9 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findById(id);
     }
 
+    @Transactional
     @Override
-    public Set<Article> findArticleByKeyword(String keyword) {
-
-
+    public List<Article> findArticleByKeyword(String keyword) {
         return articleRepository.findAllByKeywords(keyword);
     }
 }

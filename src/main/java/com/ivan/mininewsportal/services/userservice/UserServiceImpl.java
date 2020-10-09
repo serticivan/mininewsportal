@@ -4,9 +4,8 @@ import com.ivan.mininewsportal.models.User;
 import com.ivan.mininewsportal.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,9 +23,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Set<User> findAllUsers() {
+    public List<User> findAllUsers() {
 
-        return new HashSet<>(userRepository.findAll());
+        return userRepository.findAll();
 
     }
 
