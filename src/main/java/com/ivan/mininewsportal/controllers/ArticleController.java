@@ -4,6 +4,7 @@ import com.ivan.mininewsportal.models.Article;
 import com.ivan.mininewsportal.models.User;
 import com.ivan.mininewsportal.services.articleservice.ArticleService;
 import com.ivan.mininewsportal.services.userservice.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -89,11 +90,7 @@ public class ArticleController {
 
     @GetMapping("/articlelist")
     private String listOfArticles(Model model) {
-
-        List<Article> articleList = articleService.findAllArticle();
-        model.addAttribute("articles", articleList);
-        return "article_list";
-
+        return findPaginated(1, model);
     }
 
     @GetMapping("/search")
@@ -106,6 +103,22 @@ public class ArticleController {
         } else {
             return "error_page";
         }
+    }
+
+    @GetMapping("/articlelist/page/{pageNumber}")
+    private String findPaginated(@PathVariable("pageNumber") Integer pageNumber, Model model){
+        Integer pageSize = 3;
+
+        Page<Article> articlePage = articleService.findPaginated(pageNumber, pageSize);
+        List<Article> articleList = articlePage.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", articlePage.getTotalPages());
+        model.addAttribute("totalItems", articlePage.getTotalElements());
+        model.addAttribute("articles", articleList);
+
+        return "article_list";
+
     }
 
 

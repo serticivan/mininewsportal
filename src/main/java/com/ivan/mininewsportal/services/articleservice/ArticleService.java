@@ -18,4 +18,6 @@ public interface ArticleService {
 
     Page<Article> findAllArticlePageable();
 
+    Page<Article> findPaginated(Integer pageNumber, Integer pageSize);
+
 }
