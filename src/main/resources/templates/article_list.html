@@ -34,29 +34,25 @@
 
 <div th:if="${totalPages > 1}">
 
-    <div class="row col-sm-10">
-<!--        <div class="col-sm-2">-->
-<!--            Total Rows: [[${totalItems}]]-->
-<!--        </div>-->
-        <div class="col-sm-1">
-            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                <a th:if="${currentPage != i}" th:href="@{'/article/articlelist/page/' + ${i}}">[[${i}]]</a>
-                <span th:unless="${currentPage != i}">[[${i}]]</span>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
 
-            </span>
-        </div>
-        <div class="col-sm-1">
-            <a th:if="${currentPage < totalPages}" th:href="@{'/article/articlelist/page/' + ${currentPage + 1}}">Next</a>
-            <span th:unless="${currentPage < totalPages}">Next</span>
-        </div>
 
-        <div class="col-sm-1">
-            <a th:if="${currentPage < totalPages}" th:href="@{'/article/articlelist/page/' + ${totalPages}}">Last</a>
-            <span th:unless="${currentPage < totalPages}">Last</span>
-        </div>
+            <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+                <a class="page-link" th:if="${currentPage != i}" th:href="@{'/article/articlelist/page/' + ${i}}">[[${i}]]</a>
+                <span class="page-link" th:unless="${currentPage != i}">[[${i}]]</span>
+            </li>
 
-    </div>
 
+
+            <li class="page-item">
+                <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/article/articlelist/page/' + ${totalPages}}">Last</a>
+                <span class="page-link" th:unless="${currentPage < totalPages}">Last</span>
+            </li>
+
+
+        </ul>
+    </nav>
 
 </div>
 
